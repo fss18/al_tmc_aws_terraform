@@ -1,0 +1,6 @@
+claimCIDR = "replace"
+instance_type = "replace"
+subnet_id = "replace"
+tag_name = "replace"
+vpc_id = "replace"
+monitoringCIDR = "replace"
