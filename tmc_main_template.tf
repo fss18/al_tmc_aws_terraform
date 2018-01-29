@@ -51,111 +51,128 @@ data "aws_region" "current" {
 resource "aws_security_group" "tmc_sg" {
 	name = "Alert Logic Threat Manager Security Group"
 	tags {
-		Name = "Alert Logic Threat Manager Security Group"	
+		Name = "Alert Logic Threat Manager Security Group"
 	}
 	vpc_id = "${var.vpc_id}"
 
 	ingress	{
-		protocol = "tcp"
-		cidr_blocks = ["204.110.218.96/27"]
-		from_port = 22
-		to_port = 22
-	}
-	ingress	{
-		protocol = "tcp"
-		cidr_blocks = ["204.110.219.96/27"]
-		from_port = 22
-		to_port = 22
-	}
-	ingress	{
-		protocol = "tcp"
-		cidr_blocks = ["208.71.209.32/27"]
-		from_port = 22
-		to_port = 22
-	}
-	ingress	{
-		protocol = "tcp"
-		cidr_blocks = ["${var.monitoringCIDR}"]
-		from_port = 7777
-		to_port = 7777
-	}
-	ingress	{
-		protocol = "tcp"
-		cidr_blocks = ["${var.monitoringCIDR}"]
-		from_port = 443
-		to_port = 443
-	}
-	ingress	{
-		protocol = "tcp"
-		cidr_blocks = ["${var.claimCIDR}"]
-		from_port = 80
-		to_port = 80
-	}
-	egress {
-		protocol = "tcp"
-		cidr_blocks = ["204.110.218.96/27"]
-		from_port = 443
-		to_port = 443
-	}
-	egress {
-		protocol = "tcp"
-		cidr_blocks = ["204.110.219.96/27"]
-		from_port = 443
-		to_port = 443
-	}
-	egress {
-		protocol = "tcp"
-		cidr_blocks = ["204.110.218.96/27"]
-		from_port = 4138
-		to_port = 4138
-	}
-	egress {
-		protocol = "tcp"
-		cidr_blocks = ["204.110.219.96/27"]
-		from_port = 4138
-		to_port = 4138
-	}
-	egress {
-		protocol = "tcp"
-		cidr_blocks = ["208.71.209.32/27"]
-		from_port = 443
-		to_port = 443
-	}
-	egress {
-		protocol = "tcp"
-		cidr_blocks = ["208.71.209.32/27"]
-		from_port = 4138
-		to_port = 4138
-	}
-	egress {
-		protocol = "udp"
-		cidr_blocks = ["8.8.8.8/32"]
-		from_port = 53
-		to_port = 53
-	}
-	egress {
-		protocol = "udp"
-		cidr_blocks = ["8.8.4.4/32"]
-		from_port = 53
-		to_port = 53
-	}
-	egress {
-		protocol = "tcp"
-		cidr_blocks = ["8.8.8.8/32"]
-		from_port = 53
-		to_port = 53
-	}
-	egress {
-		protocol = "tcp"
-		cidr_blocks = ["8.8.4.4/32"]
-		from_port = 53
-		to_port = 53
-	}	
+	protocol = "tcp"
+	cidr_blocks = ["204.110.218.96/27"]
+	from_port = 22
+	to_port = 22
+}
+ingress	{
+	protocol = "tcp"
+	cidr_blocks = ["204.110.219.96/27"]
+	from_port = 22
+	to_port = 22
+}
+ingress	{
+	protocol = "tcp"
+	cidr_blocks = ["208.71.209.32/27"]
+	from_port = 22
+	to_port = 22
+}
+ingress	{
+	protocol = "tcp"
+	cidr_blocks = ["185.54.124.0/24"]
+	from_port = 22
+	to_port = 22
+}
+ingress	{
+	protocol = "tcp"
+	cidr_blocks = ["${var.monitoringCIDR}"]
+	from_port = 7777
+	to_port = 7777
+}
+ingress	{
+	protocol = "tcp"
+	cidr_blocks = ["${var.monitoringCIDR}"]
+	from_port = 443
+	to_port = 443
+}
+ingress	{
+	protocol = "tcp"
+	cidr_blocks = ["${var.claimCIDR}"]
+	from_port = 80
+	to_port = 80
+}
+egress {
+	protocol = "tcp"
+	cidr_blocks = ["204.110.218.96/27"]
+	from_port = 443
+	to_port = 443
+}
+egress {
+	protocol = "tcp"
+	cidr_blocks = ["204.110.219.96/27"]
+	from_port = 443
+	to_port = 443
+}
+egress {
+	protocol = "tcp"
+	cidr_blocks = ["208.71.209.32/27"]
+	from_port = 443
+	to_port = 443
+}
+egress {
+	protocol = "tcp"
+	cidr_blocks = ["185.54.124.0/24"]
+	from_port = 443
+	to_port = 443
+}
+egress {
+	protocol = "tcp"
+	cidr_blocks = ["204.110.218.96/27"]
+	from_port = 4138
+	to_port = 4138
+}
+egress {
+	protocol = "tcp"
+	cidr_blocks = ["204.110.219.96/27"]
+	from_port = 4138
+	to_port = 4138
+}
+egress {
+	protocol = "tcp"
+	cidr_blocks = ["208.71.209.32/27"]
+	from_port = 4138
+	to_port = 4138
+}
+egress {
+	protocol = "tcp"
+	cidr_blocks = ["185.54.124.0/24"]
+	from_port = 4138
+	to_port = 4138
+}
+egress {
+	protocol = "udp"
+	cidr_blocks = ["8.8.8.8/32"]
+	from_port = 53
+	to_port = 53
+}
+egress {
+	protocol = "udp"
+	cidr_blocks = ["8.8.4.4/32"]
+	from_port = 53
+	to_port = 53
+}
+egress {
+	protocol = "tcp"
+	cidr_blocks = ["8.8.8.8/32"]
+	from_port = 53
+	to_port = 53
+}
+egress {
+	protocol = "tcp"
+	cidr_blocks = ["8.8.4.4/32"]
+	from_port = 53
+	to_port = 53
 }
 
 # Launch a Threat Manager instance from a shared AMI
 resource "aws_instance" "tmc" {
-	ami = "${lookup(var.aws_amis, data.aws_region.current.name)}"	
+	ami = "${lookup(var.aws_amis, data.aws_region.current.name)}"
 	instance_type = "${var.instance_type}"
 	subnet_id = "${var.subnet_id}"
 	vpc_security_group_ids = ["${aws_security_group.tmc_sg.id}"]
@@ -173,10 +190,14 @@ resource "aws_eip" "tmc" {
 }
 
 # Outputs
-output "Navigate your browser to this IP to claim your Threat Manager Appliance" {
+output "Threat Manager public IP" {
 	value = "${aws_eip.tmc.public_ip}"
 }
 
-output "Copy this Security Group ID into the destination fields of the new egress rules for the protected hosts' Security Groups" {
+output "Threat Manager private IP" {
+	value = "${aws_instance.tmc.private_ip}"
+}
+
+output "Threat Manager security group (if needed add this to your EC2 instance outbound rules" {
 	value = "${aws_security_group.tmc_sg.id}"
 }
