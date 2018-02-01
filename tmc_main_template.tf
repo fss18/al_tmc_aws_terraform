@@ -22,6 +22,10 @@ variable "monitoringCIDR" {
 	description = "CIDR netblock to be monitored (Where agents will be installed)."
 }
 
+variable "create_eip" {
+	description = "Set value to 1(true) if you want to deploy it on public subnet, otherwise set to 0(false)"
+}
+
 # Latest AMI as per Oct 2017, contact AlertLogic (support@alertlogic.com) if you want to see the latest AMI per region
 variable "aws_amis" {
   default = {
@@ -56,118 +60,119 @@ resource "aws_security_group" "tmc_sg" {
 	vpc_id = "${var.vpc_id}"
 
 	ingress	{
-	protocol = "tcp"
-	cidr_blocks = ["204.110.218.96/27"]
-	from_port = 22
-	to_port = 22
-}
-ingress	{
-	protocol = "tcp"
-	cidr_blocks = ["204.110.219.96/27"]
-	from_port = 22
-	to_port = 22
-}
-ingress	{
-	protocol = "tcp"
-	cidr_blocks = ["208.71.209.32/27"]
-	from_port = 22
-	to_port = 22
-}
-ingress	{
-	protocol = "tcp"
-	cidr_blocks = ["185.54.124.0/24"]
-	from_port = 22
-	to_port = 22
-}
-ingress	{
-	protocol = "tcp"
-	cidr_blocks = ["${var.monitoringCIDR}"]
-	from_port = 7777
-	to_port = 7777
-}
-ingress	{
-	protocol = "tcp"
-	cidr_blocks = ["${var.monitoringCIDR}"]
-	from_port = 443
-	to_port = 443
-}
-ingress	{
-	protocol = "tcp"
-	cidr_blocks = ["${var.claimCIDR}"]
-	from_port = 80
-	to_port = 80
-}
-egress {
-	protocol = "tcp"
-	cidr_blocks = ["204.110.218.96/27"]
-	from_port = 443
-	to_port = 443
-}
-egress {
-	protocol = "tcp"
-	cidr_blocks = ["204.110.219.96/27"]
-	from_port = 443
-	to_port = 443
-}
-egress {
-	protocol = "tcp"
-	cidr_blocks = ["208.71.209.32/27"]
-	from_port = 443
-	to_port = 443
-}
-egress {
-	protocol = "tcp"
-	cidr_blocks = ["185.54.124.0/24"]
-	from_port = 443
-	to_port = 443
-}
-egress {
-	protocol = "tcp"
-	cidr_blocks = ["204.110.218.96/27"]
-	from_port = 4138
-	to_port = 4138
-}
-egress {
-	protocol = "tcp"
-	cidr_blocks = ["204.110.219.96/27"]
-	from_port = 4138
-	to_port = 4138
-}
-egress {
-	protocol = "tcp"
-	cidr_blocks = ["208.71.209.32/27"]
-	from_port = 4138
-	to_port = 4138
-}
-egress {
-	protocol = "tcp"
-	cidr_blocks = ["185.54.124.0/24"]
-	from_port = 4138
-	to_port = 4138
-}
-egress {
-	protocol = "udp"
-	cidr_blocks = ["8.8.8.8/32"]
-	from_port = 53
-	to_port = 53
-}
-egress {
-	protocol = "udp"
-	cidr_blocks = ["8.8.4.4/32"]
-	from_port = 53
-	to_port = 53
-}
-egress {
-	protocol = "tcp"
-	cidr_blocks = ["8.8.8.8/32"]
-	from_port = 53
-	to_port = 53
-}
-egress {
-	protocol = "tcp"
-	cidr_blocks = ["8.8.4.4/32"]
-	from_port = 53
-	to_port = 53
+		protocol = "tcp"
+		cidr_blocks = ["204.110.218.96/27"]
+		from_port = 22
+		to_port = 22
+	}
+	ingress	{
+		protocol = "tcp"
+		cidr_blocks = ["204.110.219.96/27"]
+		from_port = 22
+		to_port = 22
+	}
+	ingress	{
+		protocol = "tcp"
+		cidr_blocks = ["208.71.209.32/27"]
+		from_port = 22
+		to_port = 22
+	}
+	ingress	{
+		protocol = "tcp"
+		cidr_blocks = ["185.54.124.0/24"]
+		from_port = 22
+		to_port = 22
+	}
+	ingress	{
+		protocol = "tcp"
+		cidr_blocks = ["${var.monitoringCIDR}"]
+		from_port = 7777
+		to_port = 7777
+	}
+	ingress	{
+		protocol = "tcp"
+		cidr_blocks = ["${var.monitoringCIDR}"]
+		from_port = 443
+		to_port = 443
+	}
+	ingress	{
+		protocol = "tcp"
+		cidr_blocks = ["${var.claimCIDR}"]
+		from_port = 80
+		to_port = 80
+	}
+	egress {
+		protocol = "tcp"
+		cidr_blocks = ["204.110.218.96/27"]
+		from_port = 443
+		to_port = 443
+	}
+	egress {
+		protocol = "tcp"
+		cidr_blocks = ["204.110.219.96/27"]
+		from_port = 443
+		to_port = 443
+	}
+	egress {
+		protocol = "tcp"
+		cidr_blocks = ["208.71.209.32/27"]
+		from_port = 443
+		to_port = 443
+	}
+	egress {
+		protocol = "tcp"
+		cidr_blocks = ["185.54.124.0/24"]
+		from_port = 443
+		to_port = 443
+	}
+	egress {
+		protocol = "tcp"
+		cidr_blocks = ["204.110.218.96/27"]
+		from_port = 4138
+		to_port = 4138
+	}
+	egress {
+		protocol = "tcp"
+		cidr_blocks = ["204.110.219.96/27"]
+		from_port = 4138
+		to_port = 4138
+	}
+	egress {
+		protocol = "tcp"
+		cidr_blocks = ["208.71.209.32/27"]
+		from_port = 4138
+		to_port = 4138
+	}
+	egress {
+		protocol = "tcp"
+		cidr_blocks = ["185.54.124.0/24"]
+		from_port = 4138
+		to_port = 4138
+	}
+	egress {
+		protocol = "udp"
+		cidr_blocks = ["8.8.8.8/32"]
+		from_port = 53
+		to_port = 53
+	}
+	egress {
+		protocol = "udp"
+		cidr_blocks = ["8.8.4.4/32"]
+		from_port = 53
+		to_port = 53
+	}
+	egress {
+		protocol = "tcp"
+		cidr_blocks = ["8.8.8.8/32"]
+		from_port = 53
+		to_port = 53
+	}
+	egress {
+		protocol = "tcp"
+		cidr_blocks = ["8.8.4.4/32"]
+		from_port = 53
+		to_port = 53
+	}
 }
 
 # Launch a Threat Manager instance from a shared AMI
@@ -184,6 +189,7 @@ resource "aws_instance" "tmc" {
 
 # Allocate a new Elastic IP to be associated with the new Threat Manager instance
 resource "aws_eip" "tmc" {
+	count = "${var.create_eip}"
 	instance = "${aws_instance.tmc.id}"
 	vpc      = true
 	depends_on = ["aws_instance.tmc"]

@@ -19,7 +19,7 @@ Sample usage
 
 2. Apply the terraform template and wait until the Threat Manager appliance launched
 
-3. Identify the public / external IP from the Terraform state or directly from AWS console
+3. Identify the internal / external IP from the Terraform state or directly from AWS console
 
 4. open HTTP://external-ip  (or HTTP://internal-ip)
 
@@ -27,19 +27,20 @@ Sample usage
 
 
 Variables
-----------  
+----------
   * claim_CIDR : source IP CIDR that is allowed to perform web claim on port 80, i.e. 0.0.0.0/0 or specific subnet range
   * monitoring_CIDR : CIDR netblock to be monitored (Where agents will be installed)
   * instance_type : minimum recommended size is c4.xlarge
   * tag_name : Provide a tag name for your Threat Manager instance
   * subnet_id : ID of a subnet, with a default route to an IGW or NAT GW, into which Threat Manager will be deployed
   * vpc_id : VPC into which Threat Manager will be deployed
-  
+  * create_eip : Set value to 1(true) if you want to deploy it on public subnet, otherwise set to 0(false)
+
 
 License and Authors
 ===================
 License:
 Distributed under the Apache 2.0 license.
 
-Authors: 
+Authors:
 Welly Siauw (welly.siauw@alertlogic.com)
