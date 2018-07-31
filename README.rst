@@ -1,3 +1,6 @@
+# [DEPRECATED] 
+This repo is no longer maintained, please use https://github.com/alertlogic/al-terraform-templates
+
 AWS Terraform Template for AlertLogic Threat Manager
 =========================================================
 Use this template to deploy Alert Logic Threat Manager into your existing AWS infrasturcture.
